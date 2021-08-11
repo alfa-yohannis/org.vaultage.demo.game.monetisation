@@ -20,7 +20,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="Player">
     <eAnnotations source="vault"/>
     <eOperations name="challenge" eType="#//Match">
-      <eParameters name="yourName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="match" eType="#//Match"/>
     </eOperations>
     <eOperations name="respondToChallenge" eType="#//Match">
       <eParameters name="matchId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

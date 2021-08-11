@@ -42,6 +42,7 @@ public class MainController {
 	@FXML // fx:id="matchList"
 	private VBox matchList; // Value injected by FXMLLoader
 
+	
 	@FXML // fx:id="buttonSendChallenge"
 	private Button buttonSendChallenge; // Value injected by FXMLLoader
 
@@ -104,7 +105,7 @@ public class MainController {
 		
 		// send the match
 		RemotePlayer remotePlayer = new RemotePlayer(Main.LOCAL_VAULT, opponentPK);
-		remotePlayer.challenge(Main.LOCAL_PLAYER_ID);
+		remotePlayer.challenge(match);
 		
 		// load the form 
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Match.fxml"));
@@ -146,6 +147,10 @@ public class MainController {
 				: "fx:id=\"labelPlayer1Choice\" was not injected: check your FXML file 'Main.fxml'.";
 		assert labelPlayer2Choice != null
 				: "fx:id=\"labelPlayer2Choice\" was not injected: check your FXML file 'Main.fxml'.";
+				
+		labelYourName.setText(Main.LOCAL_PLAYER_ID);
+		textFieldAccountAddress.setText(Main.LOCAL_ACCOUNT_ADDRESS);
+		textAreaMyId1.setText(Main.LOCAL_VAULT.getPublicKey());
 		
 		textFieldStake.textProperty().addListener(new ChangeListener<String>() {
 			@Override
@@ -155,11 +160,11 @@ public class MainController {
 				}
 			}
 		});
-		
-		labelYourName.setText(Main.LOCAL_PLAYER_ID);
-		textFieldAccountAddress.setText(Main.LOCAL_ACCOUNT_ADDRESS);
-		textAreaMyId1.setText(Main.LOCAL_VAULT.getPublicKey());
 	}
-	
+
+	public VBox getMatchList() {
+		return matchList;
+	}
+
 	
 }

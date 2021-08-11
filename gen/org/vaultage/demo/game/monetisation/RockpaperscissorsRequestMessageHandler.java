@@ -24,8 +24,8 @@ public class RockpaperscissorsRequestMessageHandler extends RequestMessageHandle
 			switch (operation) {
 			
 				case "challenge": {
-					String yourName = Vaultage.deserialise(message.getValue("yourName"), String.class);
-					player.challenge(requester, messageToken, yourName);
+					Match match = Vaultage.deserialise(message.getValue("match"), Match.class);
+					player.challenge(requester, messageToken, match);
 				}
 				break;
 				

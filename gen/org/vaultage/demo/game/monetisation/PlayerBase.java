@@ -23,7 +23,7 @@ public abstract class PlayerBase extends Vault {
 	}
 	
 	// operations
-	public abstract void challenge(String requesterPublicKey, String requestToken, String yourName) throws Exception;
+	public abstract void challenge(String requesterPublicKey, String requestToken, Match match) throws Exception;
 	public abstract void respondToChallenge(String requesterPublicKey, String requestToken, String matchId, boolean response) throws Exception;
 	public abstract void makeAChoice(String requesterPublicKey, String requestToken, String matchId, Choice choice) throws Exception;
 }

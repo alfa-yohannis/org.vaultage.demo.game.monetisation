@@ -18,9 +18,9 @@
             <Label fx:id="labelContractAddress" layoutX="11.0" layoutY="116.0" text="Contract Address" />
             <Label fx:id="labelPlayer1Choice" layoutX="11.0" layoutY="82.0" text="Stone" />
             <Label fx:id="labelPlayer2Choice" alignment="CENTER_RIGHT" layoutX="239.0" layoutY="82.0" text="Scissors" textAlignment="RIGHT" AnchorPane.rightAnchor="8.199999999999974" />
-            <Button fx:id="buttonAccept" layoutX="11.0" layoutY="147.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="87.0" text="Accept" />
-            <Button fx:id="buttonDecline" layoutX="103.0" layoutY="147.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="87.0" text="Decline" />
-            <Button fx:id="buttonPlay" layoutX="195.0" layoutY="147.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="87.0" text="Play" />
+            <Button fx:id="buttonAccept" disable="true" layoutX="11.0" layoutY="147.0" mnemonicParsing="false" onAction="#buttonAcceptOnAction" prefHeight="26.0" prefWidth="87.0" text="Accept" />
+            <Button fx:id="buttonCancel" layoutX="103.0" layoutY="147.0" mnemonicParsing="false" onAction="#buttonCancelOnAction" prefHeight="26.0" prefWidth="87.0" text="Cancel" />
+            <Button fx:id="buttonPlay" disable="true" layoutX="195.0" layoutY="147.0" mnemonicParsing="false" onAction="#buttonPlayOnAction" prefHeight="26.0" prefWidth="87.0" text="Play" />
          </children>
          <BorderPane.margin>
             <Insets />

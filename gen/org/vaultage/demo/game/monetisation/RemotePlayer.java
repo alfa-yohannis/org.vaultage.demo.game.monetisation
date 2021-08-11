@@ -36,10 +36,10 @@ public class RemotePlayer extends RemoteVault {
 			super(localVault, remotePublicKey, receiverSocketAddress);
 		}
 		
-		public String challenge(String yourName) throws Exception {
-			return this.challenge(yourName, true);
+		public String challenge(Match match) throws Exception {
+			return this.challenge(match, true);
 		}
-		public String challenge(String yourName, boolean isEncrypted) throws Exception {
+		public String challenge(Match match, boolean isEncrypted) throws Exception {
 			VaultageMessage request = new VaultageMessage();
 			request.initToken();
 			request.setSenderId(localVault.getId());
@@ -48,7 +48,7 @@ public class RemotePlayer extends RemoteVault {
 			request.setMessageType(MessageType.REQUEST);
 			request.setOperation("challenge");
 			
-			request.putValue("yourName", Vaultage.serialise(yourName));
+			request.putValue("match", Vaultage.serialise(match));
 			
 			
 			localVault.getVaultage().sendMessage(request.getTo(), localVault.getPublicKey(),

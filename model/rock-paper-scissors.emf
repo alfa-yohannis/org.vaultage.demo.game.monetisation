@@ -24,7 +24,7 @@ class Player {
 	attr String accountAddress;
 	val Match[*] matches;
 	
-	op Match challenge(String yourName);
+	op Match challenge(Match match);
 	op Match respondToChallenge(String matchId, boolean response);
 	op Match makeAChoice(String matchId, Choice choice);
 	
