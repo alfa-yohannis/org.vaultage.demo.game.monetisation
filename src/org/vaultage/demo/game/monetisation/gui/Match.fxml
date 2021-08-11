@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="180.0" maxWidth="290.0" minHeight="180.0" minWidth="290.0" prefHeight="180.0" prefWidth="290.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <bottom>
+      <AnchorPane prefHeight="203.0" prefWidth="290.0" style="-fx-background-color: #F4F4F4;" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="labelState" layoutX="11.0" layoutY="14.0" text="RECEIVED" />
+            <Label fx:id="labelTimestamp" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="223.0" layoutY="14.0" text="2020-12-31 00:00:00 BST" AnchorPane.rightAnchor="8.199999999999974" />
+            <Label fx:id="labelStake" alignment="CENTER" contentDisplay="CENTER" layoutX="118.0" layoutY="51.0" prefHeight="18.0" prefWidth="54.0" text="0.01 ETH" textAlignment="CENTER" AnchorPane.leftAnchor="118.0" AnchorPane.rightAnchor="118.0" />
+            <Label fx:id="labelPlayer1Name" layoutX="11.0" layoutY="52.0" text="You" />
+            <Label fx:id="labelPlayer2Name" alignment="CENTER_RIGHT" layoutX="239.0" layoutY="52.0" text="Player 2" textAlignment="RIGHT" AnchorPane.rightAnchor="8.199999999999974" />
+            <Label fx:id="labelContractAddress" layoutX="11.0" layoutY="116.0" text="Contract Address" />
+            <Label fx:id="labelPlayer1Choice" layoutX="11.0" layoutY="82.0" text="Stone" />
+            <Label fx:id="labelPlayer2Choice" alignment="CENTER_RIGHT" layoutX="239.0" layoutY="82.0" text="Scissors" textAlignment="RIGHT" AnchorPane.rightAnchor="8.199999999999974" />
+            <Button fx:id="buttonAccept" layoutX="11.0" layoutY="147.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="87.0" text="Accept" />
+            <Button fx:id="buttonDecline" layoutX="103.0" layoutY="147.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="87.0" text="Decline" />
+            <Button fx:id="buttonPlay" layoutX="195.0" layoutY="147.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="87.0" text="Play" />
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </AnchorPane>
+   </bottom>
+</BorderPane>

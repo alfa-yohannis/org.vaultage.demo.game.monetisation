@@ -1,0 +1,50 @@
+@GenModel(basePackage="org.vaultage.demo.game.monetisation")
+@namespace(uri="rockpaperscissors", prefix="")
+package rockpaperscissors;
+
+enum MatchState {
+	SENT;
+	RECEIVED;
+	REJECTED;
+	ACCEPTED;
+	PLAYED;
+}
+
+enum Choice {
+	UNKNOWN;
+	ROCK;
+	PAPER;
+	SCISSORS;
+}
+
+@vault
+class Player {
+	
+	attr String name;
+	attr String accountAddress;
+	val Match[*] matches;
+	
+	op Match challenge(String yourName);
+	op Match respondToChallenge(String matchId, boolean response);
+	op Match makeAChoice(String matchId, Choice choice);
+	
+}
+
+class Match {
+
+	attr MatchState matchState;
+	attr String contractAddress;
+	attr String winner;
+	attr Long stake;
+	attr Long timetamp;
+	
+	attr String player1Name; // the challenged player
+	attr String player1pk;
+	attr String player1address;
+	attr Choice player1choice;
+	
+	attr String player2Name; // the challenger
+	attr String player2pk;
+	attr String player2address;
+	attr Choice player2choice;
+}
