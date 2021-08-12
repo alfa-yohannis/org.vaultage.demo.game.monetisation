@@ -7,14 +7,13 @@ import java.util.ResourceBundle;
 
 import org.vaultage.demo.game.monetisation.Match;
 import org.vaultage.demo.game.monetisation.MatchState;
+import org.vaultage.demo.game.monetisation.RemotePlayer;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
 
 public class MatchController {
 
@@ -56,21 +55,6 @@ public class MatchController {
 
 	@FXML
 	private Button buttonPlay;
-
-	@FXML
-	void buttonAcceptOnAction(ActionEvent event) {
-		System.out.println("Accept");
-	}
-
-	@FXML
-	void buttonCancelOnAction(ActionEvent event) {
-
-	}
-
-	@FXML
-	void buttonPlayOnAction(ActionEvent event) {
-
-	}
 
 	@FXML
 	void initialize() {
@@ -119,10 +103,99 @@ public class MatchController {
 
 	}
 
+	@FXML
+	void buttonAcceptOnAction(ActionEvent event) throws Exception {
+		if (match.getMatchState() == MatchState.RECEIVED || match.getMatchState() == MatchState.SENT) {
+			match.setMatchState(MatchState.ACCEPTED);
+
+			Platform.runLater(new Runnable() {
+				@Override
+				public void run() {
+					// fill the match list
+					try {
+						buttonCancel.setDisable(true);
+						buttonAccept.setDisable(true);
+						labelState.setText(match.getMatchState().name());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
+
+			RemotePlayer remotePlayer = new RemotePlayer(Main.LOCAL_VAULT, match.getPlayer2pk());
+			remotePlayer.acceptChallenge(match.getId(), true);
+		}
+	}
+
+	@FXML
+	void buttonCancelOnAction(ActionEvent event) {
+
+	}
+
+	@FXML
+	void buttonPlayOnAction(ActionEvent event) {
+
+		match.setMatchState(MatchState.PLAYING);
+		Main.ACTIVE_MATCH = match;
+
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					Main.MAIN_CONTROLLER.getLabelOpponentName().setText(match.getPlayer2Name());
+					Main.MAIN_CONTROLLER.getLabelPlayer1Choice().setText("???");
+					Main.MAIN_CONTROLLER.getLabelPlayer2Choice().setText("???");
+					Main.MAIN_CONTROLLER.getButtonPaper().setDisable(false);
+					Main.MAIN_CONTROLLER.getButtonRock().setDisable(false);
+					Main.MAIN_CONTROLLER.getButtonScissors().setDisable(false);
+					buttonAccept.setDisable(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	public Label getLabelPlayer1Name() {
+		return labelPlayer1Name;
+	}
+
+	public Label getLabelPlayer2Name() {
+		return labelPlayer2Name;
+	}
+
+	public Label getLabelPlayer1Choice() {
+		return labelPlayer1Choice;
+	}
+
+	public Label getLabelPlayer2Choice() {
+		return labelPlayer2Choice;
+	}
+
+	public Label getLabelState() {
+		return labelState;
+	}
+
+	public Button getButtonAccept() {
+		return buttonAccept;
+	}
+
+	public Label getLabelContractAddress() {
+		return labelContractAddress;
+	}
+
 	private Match match;
 
 	public Match getMatch() {
 		return match;
+	}
+
+	public Button getButtonCancel() {
+		return buttonCancel;
+	}
+
+	public Button getButtonPlay() {
+		return buttonPlay;
 	}
 
 	public MatchController(Match match) {
@@ -133,24 +206,39 @@ public class MatchController {
 		buttonAccept.disableProperty().set(!state);
 	}
 
-	public void update(Match remoteMatch) {
+	/***
+	 * Update localMatch based on the received remote match.
+	 * 
+	 * @param remoteMatch
+	 */
+	public void updateLocalMatch(Match remoteMatch) {
 		match.setPlayer2Name(remoteMatch.getPlayer1Name());
 		match.setPlayer2pk(remoteMatch.getPlayer1pk());
 		match.setPlayer2address(remoteMatch.getPlayer1address());
-		match.setMatchState(MatchState.RECEIVED);
-		
+
+		match.setMatchState(remoteMatch.getMatchState());
+
+		if (remoteMatch.getContractAddress() != null) {
+			match.setContractAddress(remoteMatch.getContractAddress());
+		}
+
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
 				try {
 					labelPlayer2Name.setText(match.getPlayer2Name());
 					labelState.setText(match.getMatchState().name());
+					labelContractAddress.setText(match.getContractAddress());
+					if (match.getMatchState().equals(MatchState.READY)) {
+						buttonPlay.setDisable(false);
+						buttonAccept.setDisable(true);
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-		
+
 	}
 
 }

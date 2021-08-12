@@ -9,7 +9,9 @@
     <eLiterals name="RECEIVED" value="1"/>
     <eLiterals name="REJECTED" value="2"/>
     <eLiterals name="ACCEPTED" value="3"/>
-    <eLiterals name="PLAYED" value="4"/>
+    <eLiterals name="READY" value="4"/>
+    <eLiterals name="PLAYING" value="5"/>
+    <eLiterals name="PLAYED" value="6"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Choice">
     <eLiterals name="UNKNOWN"/>
@@ -19,10 +21,10 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Player">
     <eAnnotations source="vault"/>
-    <eOperations name="challenge" eType="#//Match">
+    <eOperations name="sendChallenge" eType="#//Match">
       <eParameters name="match" eType="#//Match"/>
     </eOperations>
-    <eOperations name="respondToChallenge" eType="#//Match">
+    <eOperations name="acceptChallenge" eType="#//Match">
       <eParameters name="matchId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eParameters name="response" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     </eOperations>

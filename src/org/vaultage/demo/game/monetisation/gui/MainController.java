@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import org.vaultage.demo.game.monetisation.Choice;
 import org.vaultage.demo.game.monetisation.Match;
 import org.vaultage.demo.game.monetisation.MatchState;
 import org.vaultage.demo.game.monetisation.RemotePlayer;
@@ -99,13 +100,16 @@ public class MainController {
 		match.setPlayer1address(Main.LOCAL_ACCOUNT_ADDRESS);
 		match.setPlayer1Name(Main.LOCAL_PLAYER_ID);
 		match.setPlayer1pk(Main.LOCAL_VAULT.getPublicKey());
+		match.setPlayer1choice(Choice.UNKNOWN);
 		
 		match.setPlayer2pk(opponentPK);
+		match.setPlayer2choice(Choice.UNKNOWN);
 		
+		Main.LOCAL_VAULT.getMatches().add(match);
 		
 		// send the match
 		RemotePlayer remotePlayer = new RemotePlayer(Main.LOCAL_VAULT, opponentPK);
-		remotePlayer.challenge(match);
+		remotePlayer.sendChallenge(match);
 		
 		// load the form 
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Match.fxml"));
@@ -119,18 +123,27 @@ public class MainController {
 	}
 
 	@FXML
-	void buttonPaperOnAction(ActionEvent event) {
-
+	void buttonPaperOnAction(ActionEvent event) throws Exception {
+		Main.ACTIVE_MATCH.setPlayer1choice(Choice.PAPER);
+		labelPlayer1Choice.setText("Paper");
+		RemotePlayer remotePlayer = new RemotePlayer(Main.LOCAL_VAULT, Main.ACTIVE_MATCH.getPlayer2pk());
+		remotePlayer.makeAChoice(Main.ACTIVE_MATCH.getId(),Main.ACTIVE_MATCH.getPlayer1choice());
 	}
 
 	@FXML
-	void buttonRockOnAction(ActionEvent event) {
-
+	void buttonRockOnAction(ActionEvent event) throws Exception {
+		Main.ACTIVE_MATCH.setPlayer1choice(Choice.ROCK);
+		labelPlayer1Choice.setText("Rock");
+		RemotePlayer remotePlayer = new RemotePlayer(Main.LOCAL_VAULT, Main.ACTIVE_MATCH.getPlayer2pk());
+		remotePlayer.makeAChoice(Main.ACTIVE_MATCH.getId(),Main.ACTIVE_MATCH.getPlayer1choice());
 	}
 
 	@FXML
-	void buttonScissorsOnAction(ActionEvent event) {
-
+	void buttonScissorsOnAction(ActionEvent event) throws Exception {
+		Main.ACTIVE_MATCH.setPlayer1choice(Choice.SCISSORS);
+		labelPlayer1Choice.setText("Scissors");
+		RemotePlayer remotePlayer = new RemotePlayer(Main.LOCAL_VAULT, Main.ACTIVE_MATCH.getPlayer2pk());
+		remotePlayer.makeAChoice(Main.ACTIVE_MATCH.getId(),Main.ACTIVE_MATCH.getPlayer1choice());
 	}
 
 	@FXML // This method is called by the FXMLLoader when initialization is complete
@@ -164,6 +177,30 @@ public class MainController {
 
 	public VBox getMatchList() {
 		return matchList;
+	}
+
+	public Button getButtonRock() {
+		return buttonRock;
+	}
+
+	public Button getButtonPaper() {
+		return buttonPaper;
+	}
+
+	public Button getButtonScissors() {
+		return buttonScissors;
+	}
+
+	public Label getLabelPlayer1Choice() {
+		return labelPlayer1Choice;
+	}
+
+	public Label getLabelPlayer2Choice() {
+		return labelPlayer2Choice;
+	}
+
+	public Label getLabelOpponentName() {
+		return labelOpponentName;
 	}
 
 	

@@ -36,17 +36,17 @@ public class RemotePlayer extends RemoteVault {
 			super(localVault, remotePublicKey, receiverSocketAddress);
 		}
 		
-		public String challenge(Match match) throws Exception {
-			return this.challenge(match, true);
+		public String sendChallenge(Match match) throws Exception {
+			return this.sendChallenge(match, true);
 		}
-		public String challenge(Match match, boolean isEncrypted) throws Exception {
+		public String sendChallenge(Match match, boolean isEncrypted) throws Exception {
 			VaultageMessage request = new VaultageMessage();
 			request.initToken();
 			request.setSenderId(localVault.getId());
 			request.setFrom(localVault.getPublicKey());
 			request.setTo(remotePublicKey);
 			request.setMessageType(MessageType.REQUEST);
-			request.setOperation("challenge");
+			request.setOperation("sendChallenge");
 			
 			request.putValue("match", Vaultage.serialise(match));
 			
@@ -58,17 +58,17 @@ public class RemotePlayer extends RemoteVault {
 		}
 		
 		
-		public void respondToChallenge(Match result, String token) throws Exception {
-			this.respondToChallenge(result, token, true);
+		public void respondToSendChallenge(Match result, String token) throws Exception {
+			this.respondToSendChallenge(result, token, true);
 		}
 		
-		public void respondToChallenge(Match result, String token, boolean isEncrypted) throws Exception {
+		public void respondToSendChallenge(Match result, String token, boolean isEncrypted) throws Exception {
 		
 			VaultageMessage response = new VaultageMessage();
 			response.setToken(token); // TODO: this token is not known by the vault
 			response.setFrom(localVault.getPublicKey());
 			response.setTo(remotePublicKey);
-			response.setOperation("challenge");
+			response.setOperation("sendChallenge");
 			response.setMessageType(MessageType.RESPONSE);
 			response.setRemoteVaultType(this.getClass().getName());
 			
@@ -83,17 +83,17 @@ public class RemotePlayer extends RemoteVault {
 			localVault.getPrivateKey(), response, isEncrypted);
 		}
 		
-		public String respondToChallenge(String matchId, boolean response) throws Exception {
-			return this.respondToChallenge(matchId, response, true);
+		public String acceptChallenge(String matchId, boolean response) throws Exception {
+			return this.acceptChallenge(matchId, response, true);
 		}
-		public String respondToChallenge(String matchId, boolean response, boolean isEncrypted) throws Exception {
+		public String acceptChallenge(String matchId, boolean response, boolean isEncrypted) throws Exception {
 			VaultageMessage request = new VaultageMessage();
 			request.initToken();
 			request.setSenderId(localVault.getId());
 			request.setFrom(localVault.getPublicKey());
 			request.setTo(remotePublicKey);
 			request.setMessageType(MessageType.REQUEST);
-			request.setOperation("respondToChallenge");
+			request.setOperation("acceptChallenge");
 			
 			request.putValue("matchId", Vaultage.serialise(matchId));
 			request.putValue("response", Vaultage.serialise(response));
@@ -106,17 +106,17 @@ public class RemotePlayer extends RemoteVault {
 		}
 		
 		
-		public void respondToRespondToChallenge(Match result, String token) throws Exception {
-			this.respondToRespondToChallenge(result, token, true);
+		public void respondToAcceptChallenge(Match result, String token) throws Exception {
+			this.respondToAcceptChallenge(result, token, true);
 		}
 		
-		public void respondToRespondToChallenge(Match result, String token, boolean isEncrypted) throws Exception {
+		public void respondToAcceptChallenge(Match result, String token, boolean isEncrypted) throws Exception {
 		
 			VaultageMessage response = new VaultageMessage();
 			response.setToken(token); // TODO: this token is not known by the vault
 			response.setFrom(localVault.getPublicKey());
 			response.setTo(remotePublicKey);
-			response.setOperation("respondToChallenge");
+			response.setOperation("acceptChallenge");
 			response.setMessageType(MessageType.RESPONSE);
 			response.setRemoteVaultType(this.getClass().getName());
 			

@@ -23,16 +23,16 @@ public class RockpaperscissorsRequestMessageHandler extends RequestMessageHandle
 			String messageToken = message.getToken();
 			switch (operation) {
 			
-				case "challenge": {
+				case "sendChallenge": {
 					Match match = Vaultage.deserialise(message.getValue("match"), Match.class);
-					player.challenge(requester, messageToken, match);
+					player.sendChallenge(requester, messageToken, match);
 				}
 				break;
 				
-				case "respondToChallenge": {
+				case "acceptChallenge": {
 					String matchId = Vaultage.deserialise(message.getValue("matchId"), String.class);
 					boolean response = Vaultage.deserialise(message.getValue("response"), boolean.class);
-					player.respondToChallenge(requester, messageToken, matchId, response);
+					player.acceptChallenge(requester, messageToken, matchId, response);
 				}
 				break;
 				

@@ -6,8 +6,9 @@ import java.util.List;
 import org.vaultage.core.VaultageServer;
 import org.vaultage.demo.game.monetisation.ChallengeResponse;
 import org.vaultage.demo.game.monetisation.MakeAChoiceResponse;
+import org.vaultage.demo.game.monetisation.Match;
 import org.vaultage.demo.game.monetisation.Player;
-import org.vaultage.demo.game.monetisation.ResponseToChallengeResponse;
+import org.vaultage.demo.game.monetisation.AcceptChallengeResponse;
 import org.vaultage.demo.game.monetisation.RockpaperscissorsBroker;
 
 import javafx.application.Application;
@@ -26,6 +27,7 @@ public class Main extends Application {
 	public static Player LOCAL_VAULT;
 	public static List<MatchController> MATCHES = new ArrayList<>();
 	public static MainController MAIN_CONTROLLER;
+	public static Match ACTIVE_MATCH;
 
 	public static void main(String[] args) throws Exception {
 
@@ -40,7 +42,7 @@ public class Main extends Application {
 		Player vault = new Player();
 		vault.setId(LOCAL_PLAYER_ID);
 		vault.setName(LOCAL_PLAYER_ID);
-		vault.addOperationResponseHandler(new ResponseToChallengeResponse(MATCHES));
+		vault.addOperationResponseHandler(new AcceptChallengeResponse(MATCHES));
 		vault.addOperationResponseHandler(new ChallengeResponse(MATCHES));
 		vault.addOperationResponseHandler(new MakeAChoiceResponse(MATCHES));
 
