@@ -25,3 +25,5 @@ hs_err_pid*
 /target/
 /.settings/
 /.activemq-data/
+contract/RockPaperScissors.bin
+contract/RockPaperScissors.abi

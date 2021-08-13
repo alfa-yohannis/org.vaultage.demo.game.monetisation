@@ -1,0 +1,2 @@
+solc -o . --abi --bin --evm-version petersburg --overwrite RockPaperScissors.sol
+web3j generate solidity -o ../src -p org.vaultage.demo.game.monetisation.contract -b RockPaperScissors.bin -a RockPaperScissors.abi
